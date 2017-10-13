@@ -28,6 +28,8 @@ class IConsole extends Component {
                   className="IConsole-input"
                   value={this.state.inputValue}
                   onChange={this.updateInputValue}
+                  ref={(input) => { this.inputEl = input; }}
+                  autofocus
                 />
               </li>
             ), (
@@ -53,6 +55,8 @@ class IConsole extends Component {
       this.setState({
         inputValue: ''
       });
+
+      this.inputEl.focus();
     }
   }
 
