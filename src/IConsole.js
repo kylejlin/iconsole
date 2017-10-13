@@ -48,7 +48,7 @@ class IConsole extends Component {
 
     try {
       // eslint-disable-next-line
-      this.log(eval(this.state.inputValue));
+      this.log(JSON.stringify(eval(this.state.inputValue)));
     } catch (err) {
       this.log(err);
     } finally {
