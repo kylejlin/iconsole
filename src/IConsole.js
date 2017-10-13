@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import stringifyObject from './stringifyObject';
 import './IConsole.css';
 
 class IConsole extends Component {
@@ -20,25 +21,21 @@ class IConsole extends Component {
         <ul className="IConsole-entry-list">
           {
             this.state.entries.map((text, index) => {
-              return (<li className="IConsole-entry" key="index">{text}</li>);
-            }).concat([(
-              <li key="input">
-                <input
-                  type="text"
-                  className="IConsole-input"
-                  value={this.state.inputValue}
-                  onChange={this.updateInputValue}
-                  ref={(input) => { this.inputEl = input; }}
-                  autofocus
-                />
-              </li>
-            ), (
-              <li key="submit">
-                <button onClick={this.evalAndPrint}>Run</button>
-              </li>
-            )])
+              return (<li className="IConsole-entry" key={index}>{text}</li>);
+            })
           }
         </ul>
+
+        <input
+          type="text"
+          className="IConsole-input"
+          value={this.state.inputValue}
+          onChange={this.updateInputValue}
+          ref={(input) => { this.inputEl = input; }}
+          autoFocus
+        />
+
+        <button onClick={this.evalAndPrint}>Run</button>
       </div>
     );
   }
@@ -48,9 +45,9 @@ class IConsole extends Component {
 
     try {
       // eslint-disable-next-line
-      this.log(JSON.stringify(eval(this.state.inputValue)));
+      this.log(stringifyObject(eval(this.state.inputValue)));
     } catch (err) {
-      this.log(err);
+      this.log(err.message);
     } finally {
       this.setState({
         inputValue: ''
